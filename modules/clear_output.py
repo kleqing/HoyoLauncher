@@ -19,6 +19,7 @@ else:
 
 
 def clear_output():
+    
     subprocess.run('cls', shell=True)
 
     return None

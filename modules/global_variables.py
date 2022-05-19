@@ -1,3 +1,6 @@
+from cmath import nan
+
+
 try:
     import pathlib
     import modules.configuration
@@ -27,18 +30,23 @@ def global_variables():
         case 'honkai':
             game_exe = 'BH3.exe'
             game_exe_path = honkai_path.joinpath(game_exe)
-            game_index = 0
             launcher_image = background_image_path.joinpath('honkai.png')
         case 'genshin':
             game_exe = 'GenshinImpact.exe'
             game_exe_path = genshin_path.joinpath(game_exe)
-            game_index = 1
             launcher_image = background_image_path.joinpath('genshin.png')
+        case 'starrail':
+            game_exe = ''
+            game_exe_path = ''
+            launcher_image = background_image_path.joinpath('starrail.png')
+        case 'zenless':
+            pass
         case _:
             game_exe = ''
             game_exe_path = ''
-            game_index = 0
             launcher_image = background_image_path
+    
+    game_index = 0
     
     url_list = [
         'https://honkaiimpact3.mihoyo.com/asia', 'https://genshin.mihoyo.com',

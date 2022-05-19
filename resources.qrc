@@ -1,5 +1,5 @@
 <RCC>
-    <qresource>
+    <qresource prefix="/">
         <file>resources/backgrounds/settings_genshin.png</file>
         <file>resources/icons/app_icon.png</file>
         <file>resources/icons/top_bar/minimize/default.png</file>
@@ -32,7 +32,13 @@
         <file>resources/icons/right_bar/home/default.png</file>
         <file>resources/icons/right_bar/home/hovered.png</file>
         <file>resources/icons/right_bar/home/pressed.png</file>
+        <file>resources/icons/right_bar/launcher/default.png</file>
+        <file>resources/icons/right_bar/launcher/hovered.png</file>
+        <file>resources/icons/right_bar/launcher/pressed.png</file>
         <file>resources/icons/btn_close/default.png</file>
         <file>resources/icons/btn_close/hovered.png</file>
+        <file>resources/icons/change_game/honkai.png</file>
+        <file>resources/icons/change_game/genshin.png</file>
+        <file>resources/icons/change_game/starrail.png</file>
     </qresource>
 </RCC>

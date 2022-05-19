@@ -1,3 +1,6 @@
+from email.policy import default
+
+
 try:
     import modules.ui_main
     import modules.configuration
@@ -39,7 +42,7 @@ class SettingsWindow(QDialog):
         del game_exe, game_exe_path, background_image
 
         # ==================== Window Properties ==================== #
-        self.setWindowTitle('miHoYo Launcher')
+        self.setWindowTitle('HoyoLauncher')
         self.setWindowIcon(QIcon(':/resources/icons/app_icon.png'))
         self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
         self.setFixedSize(QSize(820, 525))
@@ -100,10 +103,23 @@ class SettingsWindow(QDialog):
         self.btn_locate_genshin_path.clicked.connect(self.btn_locate_genshin_path_event)
 
         # ==================== Game List ==================== #
+        default_game = modules.configuration.defaultgame()
+
+        match default_game:
+            case 'honkai':
+                game_index_2 = 0
+            case 'genshin':
+                game_index_2 = 1
+            case 'starrail':
+                game_index_2 = 2
+            case _:
+                pass
+
         self.game_list = QComboBox(parent=self.scroll_container, objectName='game_list')
         self.game_list.addItem('Honkai Impact 3rd')
         self.game_list.addItem('Genshin Impact')
-        self.game_list.setCurrentIndex(game_index)
+        self.game_list.addItem('Honkai: Star Rail')
+        self.game_list.setCurrentIndex(game_index_2)
 
         # ==================== Group Boxes & Its Items ==================== #
         self.screen_resolution_container = QGroupBox(parent=self.scroll_container, title=' 16 : 9  |  4 : 3 ', objectName='screen_resolution_container')
@@ -814,7 +830,7 @@ class SettingsWindow(QDialog):
                 pass
             case _:
                 self.lbl_path_genshin.setText(self.new_genshin_path)
-                ui_config_write('PATHS', 'honkai_impact', self.new_genshin_path)
+                ui_config_write('PATHS', 'genshin_impact', self.new_genshin_path)
 
         return None
 
@@ -824,10 +840,12 @@ class SettingsWindow(QDialog):
                 game = 'honkai'
             case 1:
                 game = 'genshin'
+            case 2:
+                game = 'starrail'
             case _:
                 game = ''
 
-        ui_config_write('LAUNCHER', 'game', game)
+        ui_config_write('LAUNCHER', 'default', game)
 
         for radio_button in self.screen_resolution_group:
             match radio_button.isChecked():
@@ -910,6 +928,11 @@ def global_variables():
             game_exe = 'GenshinImpact.exe'
             game_exe_path = genshin_path.joinpath(game_exe)
             game_index = 1
+            background_image = ':/resources/backgrounds/settings_genshin.png'
+        case 'starrail':
+            game_exe = ''
+            game_exe_path = ''
+            game_index = 2
             background_image = ':/resources/backgrounds/settings_genshin.png'
         case _:
             game_exe = ''
