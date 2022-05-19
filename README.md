@@ -5,6 +5,15 @@ This project is a GUI skin for Shirooo39's previous project, [mhyscr](https://gi
 
 ![image](https://user-images.githubusercontent.com/38461122/142569502-58bbd502-6b4c-45b0-b27f-441ffa51aaa5.png)
 
+## Changes
+Changed default game behaviour
+Added game-change button on the screen
+Added original-launcher button (rocket)
+Fixed 2 or 3 bugs (probably creating 5 or 6)
+
+## Soon
+Buttons on settings to change the original launcher path.
+
 ## Download
 
 Not included.
