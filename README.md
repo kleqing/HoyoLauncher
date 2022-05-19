@@ -27,7 +27,7 @@ There are some requirements you'd need to pay attention to:
 
 ## Disclaimer
 
-- Neither of this project nor any of us have any relation with miHoYo. We're just one of their many players.
+- Neither of this project nor any of us have any relation with miHoYo. We're just two of their many players.
 - This launcher is NOT a replacement for the original launcher!
 - The source code is a complete mess. (yeah and what I added is most likely even messier) 
   I wish you the best luck reading them because at this point, only God knows how to read it.
