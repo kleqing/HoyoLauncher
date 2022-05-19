@@ -7,12 +7,12 @@ This project is a GUI skin for Shirooo39's previous project, [mhyscr](https://gi
 
 ## Changes
 Changed default game behaviour
-Added game-change button on the screen
-Added original-launcher button (rocket)
+Added buttons for game changing
+Added a button linking to the original launcher (rocket)
 Fixed 2 or 3 bugs (probably creating 5 or 6)
 
 ## Soon
-Buttons on settings to change the original launcher path.
+Buttons in the settings page to change the original launcher path.
 
 ## Download
 
