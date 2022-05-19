@@ -3,7 +3,7 @@
 A custom launcher for Honkai Impact 3rd and Genshin Impact and soon Honkai: Star Rail written in Python + PySide6 (Python bindings for Qt6).  
 This project is a GUI skin for Shirooo39's previous project, [mhyscr](https://github.com/shirooo39/mhyscr).  
 
-![image](https://user-images.githubusercontent.com/38461122/142569502-58bbd502-6b4c-45b0-b27f-441ffa51aaa5.png)
+![image](https://i.imgur.com/1LDUMOL.png)
 
 ## Changes
 Changed default game behaviour
