@@ -23,7 +23,7 @@ else:
 def message_box(alert_level, text):
     dialog = QMessageBox()
 
-    dialog.setWindowTitle("miHoYo Launcher")
+    dialog.setWindowTitle("HoyoLauncher")
     dialog.setWindowIcon(QIcon(':/resources/icons/app_icon.png'))
     match alert_level:
         case 'WARNING' | 'Warning' | 'warning':

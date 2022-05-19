@@ -31,7 +31,8 @@ def initialize():
             return True
         case _:
             parser['LAUNCHER'] = {
-                'game': 'honkai'
+                'game': 'honkai',
+                'default': 'honkai'
             }
             parser['PATHS'] = {
                 'honkai_impact': 'D:\\Games\\Honkai Impact 3rd',
@@ -71,6 +72,29 @@ def read():
             pass
     
     return None
+
+def read_launcher():
+    match initialize():
+        case True:
+            try:
+                parser.read(config_file)
+            except Exception as unknonw_error:
+                ui_message_box('error', str(unknonw_error))
+            else:
+                game_name = parser.get('LAUNCHER', 'game')
+                honkai_launcher_path = pathlib.Path(parser.get('OL', r'honkai_impact'))
+                genshin_launcher_path = pathlib.Path(parser.get('OL', r'genshin_impact'))
+
+                return game_name, honkai_launcher_path, genshin_launcher_path
+        case _:
+            pass
+    
+    return None
+    
+def defaultgame():
+    default_game = parser.get('LAUNCHER', 'default')
+    return default_game
+
 
 def write(section, item, value):
     match initialize():
