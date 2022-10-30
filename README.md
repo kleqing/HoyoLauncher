@@ -34,4 +34,4 @@ There are some requirements you'd need to pay attention to:
 
 ## License
 
-Probably still within MIT License? I neither know much about licensing
+Probably still within MIT License? We don't know much about licensing
