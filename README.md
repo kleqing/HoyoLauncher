@@ -35,5 +35,3 @@ There are some requirements you'd need to pay attention to:
 ## License
 
 Probably still within MIT License? I neither know much about licensing
-
-PS. Hey Shirooo! If you're reading this and would like me to take this repo down just hit me up.
