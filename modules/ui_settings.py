@@ -1,10 +1,6 @@
-from email.policy import default
-
-
 try:
     import modules.ui_main
     import modules.configuration
-    import modules.resources
     from PySide6 import QtCore
     from PySide6.QtCore import (QPoint, QSize)
     from PySide6.QtGui import (QScreen, QPixmap, QIcon, QFont)
@@ -42,8 +38,8 @@ class SettingsWindow(QDialog):
         del game_exe, game_exe_path, background_image
 
         # ==================== Window Properties ==================== #
-        self.setWindowTitle('HoyoLauncher')
-        self.setWindowIcon(QIcon(':/resources/icons/app_icon.png'))
+        self.setWindowTitle('Launcher')
+        self.setWindowIcon(QIcon('resources/icons/app_icon.png'))
         self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
         self.setFixedSize(QSize(820, 525))
         screen_size = QScreen.availableGeometry(QApplication.primaryScreen())
@@ -91,7 +87,7 @@ class SettingsWindow(QDialog):
         self.lbl_launcher_version = QLabel(parent=self.scroll_container, text='Launcher version', objectName='lbl_launcher_version')
         self.lbl_current_version = QLabel(parent=self.scroll_container, text='Current version: 1.0.0', objectName='lbl_current_version')
         self.lbl_about = QLabel(parent=self.scroll_container, text='About', objectName='lbl_about')
-        source_code_url = '<a href="http://github.com/shirooo39/mihoyo_launcher" style="text-decoration: none; color: rgb(220, 188, 96); font: 13pt "Segoe UI";">View source code</a>'
+        source_code_url = '<a href="http://github.com/kleqing/HoyoLauncher" style="text-decoration: none; color: rgb(220, 188, 96); font: 13pt "Segoe UI";">View source code</a>'
         self.lbl_source_code = QLabel(parent=self.scroll_container, text=source_code_url, objectName='lbl_source_code')
         self.lbl_source_code.setOpenExternalLinks(True)
 
@@ -103,23 +99,10 @@ class SettingsWindow(QDialog):
         self.btn_locate_genshin_path.clicked.connect(self.btn_locate_genshin_path_event)
 
         # ==================== Game List ==================== #
-        default_game = modules.configuration.defaultgame()
-
-        match default_game:
-            case 'honkai':
-                game_index_2 = 0
-            case 'genshin':
-                game_index_2 = 1
-            case 'starrail':
-                game_index_2 = 2
-            case _:
-                pass
-
         self.game_list = QComboBox(parent=self.scroll_container, objectName='game_list')
         self.game_list.addItem('Honkai Impact 3rd')
         self.game_list.addItem('Genshin Impact')
-        self.game_list.addItem('Honkai: Star Rail')
-        self.game_list.setCurrentIndex(game_index_2)
+        self.game_list.setCurrentIndex(game_index)
 
         # ==================== Group Boxes & Its Items ==================== #
         self.screen_resolution_container = QGroupBox(parent=self.scroll_container, title=' 16 : 9  |  4 : 3 ', objectName='screen_resolution_container')
@@ -127,24 +110,25 @@ class SettingsWindow(QDialog):
         font.setPointSize(10)
         self.screen_resolution_container.setFont(font)
 
-        self.screen_resolution_1 = QRadioButton(parent=self.screen_resolution_container, text=' 7680  x  4320', objectName='screen_resolution_1')
-        self.screen_resolution_2 = QRadioButton(parent=self.screen_resolution_container, text=' 3840  x  2160', objectName='screen_resolution_2')
-        self.screen_resolution_3 = QRadioButton(parent=self.screen_resolution_container, text=' 2560  x  1440', objectName='screen_resolution_3')
-        self.screen_resolution_4 = QRadioButton(parent=self.screen_resolution_container, text=' 1920  x  1080', objectName='screen_resolution_4')
-        self.screen_resolution_5 = QRadioButton(parent=self.screen_resolution_container, text=' 1366  x  768', objectName='screen_resolution_5')
-        self.screen_resolution_6 = QRadioButton(parent=self.screen_resolution_container, text=' 1280  x  720', objectName='screen_resolution_6')
-        self.screen_resolution_7 = QRadioButton(parent=self.screen_resolution_container, text=' 1024  x  576', objectName='screen_resolution_7')
-        self.screen_resolution_8 = QRadioButton(parent=self.screen_resolution_container, text=' 960  x  540', objectName='screen_resolution_8')
-        self.screen_resolution_9 = QRadioButton(parent=self.screen_resolution_container, text=' 854  x  480', objectName='screen_resolution_9')
-        self.screen_resolution_10 = QRadioButton(parent=self.screen_resolution_container, text=' 6400  x  4800', objectName='screen_resolution_10')
-        self.screen_resolution_11 = QRadioButton(parent=self.screen_resolution_container, text=' 4096  x  3072', objectName='screen_resolution_11')
-        self.screen_resolution_12 = QRadioButton(parent=self.screen_resolution_container, text=' 3200  x  2400', objectName='screen_resolution_12')
-        self.screen_resolution_13 = QRadioButton(parent=self.screen_resolution_container, text=' 2048  x  1536', objectName='screen_resolution_13')
-        self.screen_resolution_14 = QRadioButton(parent=self.screen_resolution_container, text=' 1152  x  864', objectName='screen_resolution_14')
-        self.screen_resolution_15 = QRadioButton(parent=self.screen_resolution_container, text=' 1024  x  768', objectName='screen_resolution_15')
-        self.screen_resolution_16 = QRadioButton(parent=self.screen_resolution_container, text=' 800  x  600', objectName='screen_resolution_16')
-        self.screen_resolution_17 = QRadioButton(parent=self.screen_resolution_container, text=' 640  x  480', objectName='screen_resolution_17')
-        self.screen_resolution_18 = QRadioButton(parent=self.screen_resolution_container, text=' 320  x  240', objectName='screen_resolution_18')
+        self.screen_resolution_1 = QRadioButton(parent=self.screen_resolution_container, text=' 7680  x  4320 ', objectName='screen_resolution_1')
+        self.screen_resolution_2 = QRadioButton(parent=self.screen_resolution_container, text=' 6400  x  4800 ', objectName='screen_resolution_2')
+        self.screen_resolution_3 = QRadioButton(parent=self.screen_resolution_container, text=' 4096  x  3072 ', objectName='screen_resolution_3')
+        self.screen_resolution_4 = QRadioButton(parent=self.screen_resolution_container, text=' 3840  x  2160 ', objectName='screen_resolution_4')
+        self.screen_resolution_5 = QRadioButton(parent=self.screen_resolution_container, text=' 3200  x  2400 ', objectName='screen_resolution_5')
+        self.screen_resolution_6 = QRadioButton(parent=self.screen_resolution_container, text=' 2560  x  1440 ', objectName='screen_resolution_6')
+        self.screen_resolution_7 = QRadioButton(parent=self.screen_resolution_container, text=' 2048  x  1536 ', objectName='screen_resolution_7')
+        self.screen_resolution_8 = QRadioButton(parent=self.screen_resolution_container, text=' 1920  x  1080 ', objectName='screen_resolution_8')
+        self.screen_resolution_9 = QRadioButton(parent=self.screen_resolution_container, text=' 1600  x  900', objectName='screen_resolution_9')
+        self.screen_resolution_10 = QRadioButton(parent=self.screen_resolution_container, text=' 1440  x  900 ', objectName='screen_resolution_10')
+        self.screen_resolution_11 = QRadioButton(parent=self.screen_resolution_container, text=' 1366  x  768 ', objectName='screen_resolution_11')
+        self.screen_resolution_12 = QRadioButton(parent=self.screen_resolution_container, text=' 1280  x  800 ', objectName='screen_resolution_12')
+        self.screen_resolution_13 = QRadioButton(parent=self.screen_resolution_container, text=' 1280  x  600 ', objectName='screen_resolution_13')
+        self.screen_resolution_14 = QRadioButton(parent=self.screen_resolution_container, text=' 1024  x  768 ', objectName='screen_resolution_14')
+        self.screen_resolution_15 = QRadioButton(parent=self.screen_resolution_container, text=' 1024  x  640 ', objectName='screen_resolution_15')
+        self.screen_resolution_16 = QRadioButton(parent=self.screen_resolution_container, text=' 960  x  540 ', objectName='screen_resolution_16')
+        self.screen_resolution_17 = QRadioButton(parent=self.screen_resolution_container, text=' 800  x  600', objectName='screen_resolution_17')
+        self.screen_resolution_18 = QRadioButton(parent=self.screen_resolution_container, text=' 640  x  480', objectName='screen_resolution_18')
+        self.lbl_attention = QLabel(parent=self.screen_resolution_container, text='*Attention: Game will started at windowed mode, not fullscreen or borderless mode', objectName='screen_resolution_20')
 
         self.screen_resolution_group = [
             self.screen_resolution_1, self.screen_resolution_2, self.screen_resolution_3,
@@ -161,42 +145,43 @@ class SettingsWindow(QDialog):
         match screen_width, screen_height:
             case 7680, 4320:
                 self.screen_resolution_group[0].setChecked(True)
-            case 3840, 21560:
-                self.screen_resolution_group[1].setChecked(True)
-            case 2560, 1440:
-                self.screen_resolution_group[2].setChecked(True)
-            case 1920, 1080:
-                self.screen_resolution_group[3].setChecked(True)
-            case 1366, 768:
-                self.screen_resolution_group[4].setChecked(True)
-            case 1280, 720:
-                self.screen_resolution_group[5].setChecked(True)
-            case 1024, 576:
-                self.screen_resolution_group[6].setChecked(True)
-            case 960, 540:
-                self.screen_resolution_group[7].setChecked(True)
-            case 854, 480:
-                self.screen_resolution_group[8].setChecked(True)
             case 6400, 4800:
-                self.screen_resolution_group[9].setChecked(True)
+                self.screen_resolution_group[1].setChecked(True)
             case 4096, 3072:
-                self.screen_resolution_group[10].setChecked(True)
+                self.screen_resolution_group[2].setChecked(True)
+            case 3840, 2160:
+                self.screen_resolution_group[3].setChecked(True)
             case 3200, 2400:
-                self.screen_resolution_group[11].setChecked(True)
+                self.screen_resolution_group[4].setChecked(True)
+            case 2560, 1440:
+                self.screen_resolution_group[5].setChecked(True)
             case 2048, 1536:
+                self.screen_resolution_group[6].setChecked(True)
+            case 1920, 1080:
+                self.screen_resolution_group[7].setChecked(True)
+            case 1600, 900:
+                self.screen_resolution_group[8].setChecked(True)
+            case 1440, 900:
+                self.screen_resolution_group[9].setChecked(True)
+            case 1366, 768:
+                self.screen_resolution_group[10].setChecked(True)
+            case 1280, 800:
+                self.screen_resolution_group[11].setChecked(True)
+            case 1280, 600:
                 self.screen_resolution_group[12].setChecked(True)
-            case 1152, 864:
-                self.screen_resolution_group[13].setChecked(True)
             case 1024, 768:
+                self.screen_resolution_group[13].setChecked(True)
+            case 1024, 640:
                 self.screen_resolution_group[14].setChecked(True)
-            case 800, 600:
+            case 960, 540:
                 self.screen_resolution_group[15].setChecked(True)
-            case 640, 480:
+            case 800, 600:
                 self.screen_resolution_group[16].setChecked(True)
-            case 320, 240:
+            case 640, 480:
                 self.screen_resolution_group[17].setChecked(True)
             case _:
-                self.screen_resolution_group[5].setChecked(True)
+                self.screen_resolution_group[12].setChecked(True)
+        
 
         # ==================== Set Style ==================== #
         match game_name:
@@ -244,13 +229,11 @@ class SettingsWindow(QDialog):
                     border: 0px solid rgba(0, 0, 0, 0);
                     border-radius: 0px;
                 }
-
                 QPushButton#btn_close {
-                    background-image: url(:/resources/icons/btn_close/default.png);
+                    background-image: url(resources/icons/btn_close/default.png);
                 }
-
                 QPushButton#btn_close:hover, QPushButton#btn_close:pressed {
-                    background-image: url(:/resources/icons/btn_close/hovered.png);
+                    background-image: url(resources/icons/btn_close/hovered.png);
                 }
             """
         )
@@ -266,15 +249,12 @@ class SettingsWindow(QDialog):
                     font: 13pt "Segoe UI";
                     padding-right: 97px;
                 }
-
                 QPushButton#btn_menu_1 {
                     color: rgb(117, 118, 121);
                 }
-
                 QPushButton#btn_menu_1:hover, QPushButton#btn_menu_1:pressed {
                     color: rgb(57, 59, 63);
                 }
-
                 QPushButton#btn_menu_1:pressed {
                     background-color: rgb(233, 233, 233);
                 }
@@ -292,15 +272,12 @@ class SettingsWindow(QDialog):
                     font: 13pt "Segoe UI";
                     padding-right: 24px;
                 }
-
                 QPushButton#btn_menu_2 {
                     color: rgb(117, 118, 121);
                 }
-
                 QPushButton#btn_menu_2:hover, QPushButton#btn_menu_2:pressed {
                     color: rgb(57, 59, 63);
                 }
-
                 QPushButton#btn_menu_2:pressed {
                     background-color: rgb(233, 233, 233);
                 }
@@ -318,15 +295,12 @@ class SettingsWindow(QDialog):
                     font: 13pt "Segoe UI";
                     padding-right: 107px;
                 }
-
                 QPushButton#btn_menu_3 {
                     color: rgb(117, 118, 121);
                 }
-
                 QPushButton#btn_menu_3:hover, QPushButton#btn_menu_3:pressed {
                     color: rgb(57, 59, 63);
                 }
-
                 QPushButton#btn_menu_3:pressed {
                     background-color: rgb(233, 233, 233);
                 }
@@ -345,15 +319,12 @@ class SettingsWindow(QDialog):
                     font: 15pt "Segoe UI";
                     text-align: center;
                 }
-
                 QPushButton#btn_cancel {
                     background-color: rgb(255, 255, 255);
                 }
-
                 QPushButton#btn_cancel:hover {
                     background-color: rgb(251, 248, 239);
                 }
-
                 QPushButton#btn_cancel:pressed {
                     background-color: rgb(236, 233, 225);
                 }
@@ -371,15 +342,12 @@ class SettingsWindow(QDialog):
                     font: 14pt "Segoe UI";
                     text-align: center;
                 }
-
                 QPushButton#btn_confirm {
                     background-color: rgb(57, 59, 64);
                 }
-
                 QPushButton#btn_confirm:hover {
                     background-color: rgb(77, 79, 83);
                 }
-
                 QPushButton#btn_confirm:pressed {
                     background-color: rgb(51, 53, 57);
                 }
@@ -398,18 +366,15 @@ class SettingsWindow(QDialog):
                 QScrollArea#scroll_area {
                     border: 0px;
                 }
-
                 QScrollBar::vertical {
                     border: none;
                     background-color: #FFFFFF;
                     width: 6px;
                 }
-
                 QScrollBar::handle:vertical {
                     border-radius: 3px;
                     background-color: #E9ECF0;
                 }
-
                 QScrollBar::handle:vertical:hover, QScrollBar::handle:vertical:pressed {
                     background-color: #D2D5D8;
                 }
@@ -428,12 +393,12 @@ class SettingsWindow(QDialog):
         )
 
         # ==================== Labels ==================== #
-        self.lbl_default_game.setFixedSize(QSize(150, 30))
+        self.lbl_default_game.setFixedSize(QSize(170, 30))
         self.lbl_default_game.move(35, 10)
         self.lbl_default_game.setStyleSheet(
             """
                 QLabel#lbl_default_game {
-                	color: rgb(57, 59, 64);
+                    color: rgb(57, 59, 64);
                     font: 15pt  "Segoe UI";
                 }
             """
@@ -561,15 +526,12 @@ class SettingsWindow(QDialog):
                     color: rgb(220, 188, 96);
                     font: 13pt "Segoe UI";
                 }
-
                 QPushButton#btn_locate_honkai_path {
                     background-color: rgb(255, 255, 255);
                 }
-
                 QPushButton#btn_locate_honkai_path:hover {
                     background-color: rgb(251, 248, 239);
                 }
-
                 QPushButton#btn_locate_honkai_path:pressed {
                     background-color: rgb(236, 233, 225);
                 }
@@ -586,15 +548,12 @@ class SettingsWindow(QDialog):
                     color: rgb(220, 188, 96);
                     font: 13pt "Segoe UI";
                 }
-
                 QPushButton#btn_locate_genshin_path {
                     background-color: rgb(255, 255, 255);
                 }
-
                 QPushButton#btn_locate_genshin_path:hover {
                     background-color: rgb(251, 248, 239);
                 }
-
                 QPushButton#btn_locate_genshin_path:pressed {
                     background-color: rgb(236, 233, 225);
                 }
@@ -641,7 +600,7 @@ class SettingsWindow(QDialog):
                 }
             """
         )
-        self.screen_resolution_5.setFixedSize(QSize(120, 20))
+        self.screen_resolution_5.setFixedSize(QSize(125, 20))
         self.screen_resolution_5.move(205, 70)
         self.screen_resolution_5.setStyleSheet(
             """
@@ -650,7 +609,7 @@ class SettingsWindow(QDialog):
                 }
             """
         )
-        self.screen_resolution_6.setFixedSize(QSize(120, 20))
+        self.screen_resolution_6.setFixedSize(QSize(125, 20))
         self.screen_resolution_6.move(205, 110)
         self.screen_resolution_6.setStyleSheet(
             """
@@ -659,7 +618,7 @@ class SettingsWindow(QDialog):
                 }
             """
         )
-        self.screen_resolution_7.setFixedSize(QSize(120, 20))
+        self.screen_resolution_7.setFixedSize(QSize(125, 20))
         self.screen_resolution_7.move(385, 30)
         self.screen_resolution_7.setStyleSheet(
             """
@@ -668,7 +627,7 @@ class SettingsWindow(QDialog):
                 }
             """
         )
-        self.screen_resolution_8.setFixedSize(QSize(110, 20))
+        self.screen_resolution_8.setFixedSize(QSize(125, 20))
         self.screen_resolution_8.move(385, 70)
         self.screen_resolution_8.setStyleSheet(
             """
@@ -677,7 +636,7 @@ class SettingsWindow(QDialog):
                 }
             """
         )
-        self.screen_resolution_9.setFixedSize(QSize(110, 20))
+        self.screen_resolution_9.setFixedSize(QSize(115, 20))
         self.screen_resolution_9.move(385, 110)
         self.screen_resolution_9.setStyleSheet(
             """
@@ -723,7 +682,7 @@ class SettingsWindow(QDialog):
                 }
             """
         )
-        self.screen_resolution_14.setFixedSize(QSize(120, 20))
+        self.screen_resolution_14.setFixedSize(QSize(125, 20))
         self.screen_resolution_14.move(205, 220)
         self.screen_resolution_14.setStyleSheet(
             """
@@ -765,6 +724,16 @@ class SettingsWindow(QDialog):
             """
                 QRadioButton#screen_resolution_18 {
                     font: 13pt "Segoe UI";
+                }
+            """
+        )
+        self.lbl_attention.setFixedSize(QSize(500, 20))
+        self.lbl_attention.move(40, 285)
+        self.lbl_attention.setStyleSheet(
+            """
+                QRadioButton#lbl_attention {
+                    font: 13pt "Segoe UI";
+                    algin: center;
                 }
             """
         )
@@ -840,12 +809,10 @@ class SettingsWindow(QDialog):
                 game = 'honkai'
             case 1:
                 game = 'genshin'
-            case 2:
-                game = 'starrail'
             case _:
                 game = ''
 
-        ui_config_write('LAUNCHER', 'default', game)
+        ui_config_write('LAUNCHER', 'game', game)
 
         for radio_button in self.screen_resolution_group:
             match radio_button.isChecked():
@@ -855,59 +822,59 @@ class SettingsWindow(QDialog):
                             ui_config_write('OPTIONS', 'screen_width', '7680')
                             ui_config_write('OPTIONS', 'screen_height', '4320')
                         case 'screen_resolution_2':
-                            ui_config_write('OPTIONS', 'screen_width', '3840')
-                            ui_config_write('OPTIONS', 'screen_height', '2160')
-                        case 'screen_resolution_3':
-                            ui_config_write('OPTIONS', 'screen_width', '2560')
-                            ui_config_write('OPTIONS', 'screen_height', '1440')
-                        case 'screen_resolution_4':
-                            ui_config_write('OPTIONS', 'screen_width', '1920')
-                            ui_config_write('OPTIONS', 'screen_height', '1080')
-                        case 'screen_resolution_5':
-                            ui_config_write('OPTIONS', 'screen_width', '1366')
-                            ui_config_write('OPTIONS', 'screen_height', '768')
-                        case 'screen_resolution_6':
-                            ui_config_write('OPTIONS', 'screen_width', '1280')
-                            ui_config_write('OPTIONS', 'screen_height', '720')
-                        case 'screen_resolution_7':
-                            ui_config_write('OPTIONS', 'screen_width', '1024')
-                            ui_config_write('OPTIONS', 'screen_height', '576')
-                        case 'screen_resolution_8':
-                            ui_config_write('OPTIONS', 'screen_width', '960')
-                            ui_config_write('OPTIONS', 'screen_height', '540')
-                        case 'screen_resolution_9':
-                            ui_config_write('OPTIONS', 'screen_width', '854')
-                            ui_config_write('OPTIONS', 'screen_height', '480')
-                        case 'screen_resolution_10':
                             ui_config_write('OPTIONS', 'screen_width', '6400')
                             ui_config_write('OPTIONS', 'screen_height', '4800')
-                        case 'screen_resolution_11':
+                        case 'screen_resolution_3':
                             ui_config_write('OPTIONS', 'screen_width', '4096')
                             ui_config_write('OPTIONS', 'screen_height', '3072')
-                        case 'screen_resolution_12':
+                        case 'screen_resolution_4':
+                            ui_config_write('OPTIONS', 'screen_width', '3840')
+                            ui_config_write('OPTIONS', 'screen_height', '2160')
+                        case 'screen_resolution_5':
                             ui_config_write('OPTIONS', 'screen_width', '3200')
                             ui_config_write('OPTIONS', 'screen_height', '2400')
-                        case 'screen_resolution_13':
+                        case 'screen_resolution_6':
+                            ui_config_write('OPTIONS', 'screen_width', '2560')
+                            ui_config_write('OPTIONS', 'screen_height', '1440')
+                        case 'screen_resolution_7':
                             ui_config_write('OPTIONS', 'screen_width', '2048')
                             ui_config_write('OPTIONS', 'screen_height', '1536')
+                        case 'screen_resolution_8':
+                            ui_config_write('OPTIONS', 'screen_width', '1920')
+                            ui_config_write('OPTIONS', 'screen_height', '1080')
+                        case 'screen_resolution_9':
+                            ui_config_write('OPTIONS', 'screen_width', '1600')
+                            ui_config_write('OPTIONS', 'screen_height', '900')
+                        case 'screen_resolution_10':
+                            ui_config_write('OPTIONS', 'screen_width', '1440')
+                            ui_config_write('OPTIONS', 'screen_height', '900')
+                        case 'screen_resolution_11':
+                            ui_config_write('OPTIONS', 'screen_width', '1366')
+                            ui_config_write('OPTIONS', 'screen_height', '768')
+                        case 'screen_resolution_12':
+                            ui_config_write('OPTIONS', 'screen_width', '1280')
+                            ui_config_write('OPTIONS', 'screen_height', '800')
+                        case 'screen_resolution_13':
+                            ui_config_write('OPTIONS', 'screen_width', '1280')
+                            ui_config_write('OPTIONS', 'screen_height', '600')
                         case 'screen_resolution_14':
-                            ui_config_write('OPTIONS', 'screen_width', '1152')
-                            ui_config_write('OPTIONS', 'screen_height', '864')
-                        case 'screen_resolution_15':
                             ui_config_write('OPTIONS', 'screen_width', '1024')
                             ui_config_write('OPTIONS', 'screen_height', '768')
+                        case 'screen_resolution_15':
+                            ui_config_write('OPTIONS', 'screen_width', '1024')
+                            ui_config_write('OPTIONS', 'screen_height', '640')
                         case 'screen_resolution_16':
+                            ui_config_write('OPTIONS', 'screen_width', '960')
+                            ui_config_write('OPTIONS', 'screen_height', '540')
+                        case 'screen_resolution_17':
                             ui_config_write('OPTIONS', 'screen_width', '800')
                             ui_config_write('OPTIONS', 'screen_height', '600')
-                        case 'screen_resolution_17':
+                        case 'screen_resolution_18':
                             ui_config_write('OPTIONS', 'screen_width', '640')
                             ui_config_write('OPTIONS', 'screen_height', '480')
-                        case 'screen_resolution_18':
-                            ui_config_write('OPTIONS', 'screen_width', '320')
-                            ui_config_write('OPTIONS', 'screen_height', '240')
                         case _:
                             ui_config_write('OPTIONS', 'screen_width', '1280')
-                            ui_config_write('OPTIONS', 'screen_height', '720')
+                            ui_config_write('OPTIONS', 'screen_height', '600')
                 case _:
                     pass
 
@@ -923,17 +890,12 @@ def global_variables():
             game_exe = 'BH3.exe'
             game_exe_path = honkai_path.joinpath(game_exe)
             game_index = 0
-            background_image = ':/resources/backgrounds/settings_genshin.png'
+            background_image = 'resources/backgrounds/settings_genshin.png'
         case 'genshin':
             game_exe = 'GenshinImpact.exe'
             game_exe_path = genshin_path.joinpath(game_exe)
             game_index = 1
-            background_image = ':/resources/backgrounds/settings_genshin.png'
-        case 'starrail':
-            game_exe = ''
-            game_exe_path = ''
-            game_index = 2
-            background_image = ':/resources/backgrounds/settings_genshin.png'
+            background_image = 'resources/backgrounds/settings_genshin.png'
         case _:
             game_exe = ''
             game_exe_path = ''

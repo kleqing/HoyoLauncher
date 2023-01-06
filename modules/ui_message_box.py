@@ -1,5 +1,4 @@
 try:
-    import modules.resources
     from PySide6.QtGui import QIcon
     from PySide6.QtWidgets import QMessageBox
 except ImportError as import_error:
@@ -23,8 +22,8 @@ else:
 def message_box(alert_level, text):
     dialog = QMessageBox()
 
-    dialog.setWindowTitle("HoyoLauncher")
-    dialog.setWindowIcon(QIcon(':/resources/icons/app_icon.png'))
+    dialog.setWindowTitle("Launcher")
+    dialog.setWindowIcon(QIcon('resources/icons/app_icon.png'))
     match alert_level:
         case 'WARNING' | 'Warning' | 'warning':
             dialog.setIcon(QMessageBox.Warning)

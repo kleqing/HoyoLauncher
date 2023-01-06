@@ -1,12 +1,12 @@
 try:
     import pathlib
+    import os
     import subprocess
     import sys
     import webbrowser
     import modules.ui_settings
     import modules.ui_message_box
     import modules.configuration
-    import modules.resources
     from PySide6 import QtCore
     from PySide6.QtCore import (QPoint, QSize)
     from PySide6.QtGui import (QCursor, QScreen, QPixmap, QIcon)
@@ -50,8 +50,8 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(self.central_widget)
 
         # ==================== Window Properties ==================== #
-        self.setWindowTitle('HoyoLauncher')
-        self.setWindowIcon(QIcon(':/resources/icons/app_icon.png'))
+        self.setWindowTitle('Launcher')
+        self.setWindowIcon(QIcon('resources/icons/app_icon.png'))
         self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
         self.setFixedSize(QSize(1155, 650))
         screen_size = QScreen.availableGeometry(QApplication.primaryScreen())
@@ -75,7 +75,7 @@ class MainWindow(QMainWindow):
             """
         )
 
-        self.app_title = QLabel(self, text='HoyoLauncher', objectName='app_title')
+        self.app_title = QLabel(self, text='Launcher', objectName='app_title')
         self.app_title.setFixedSize(QSize(150, 30))
         self.app_title.move(12, 0)
         self.app_title.setStyleSheet(
@@ -88,9 +88,9 @@ class MainWindow(QMainWindow):
             """
         )
 
-        self.app_version = QLabel(self, text='1.0.1', objectName='app_version')
+        self.app_version = QLabel(self, text='1.0.0', objectName='app_version')
         self.app_version.setFixedSize(QSize(40, 30))
-        self.app_version.move(95, 0)
+        self.app_version.move(65, 0)
         self.app_version.setStyleSheet(
             """
                 QLabel#app_version {
@@ -112,15 +112,15 @@ class MainWindow(QMainWindow):
                 }
 
                 QPushButton#btn_close {
-                    background-image: url(:/resources/icons/top_bar/close/default.png);
+                    background-image: url(resources/icons/top_bar/close/default.png);
                 }
 
                 QPushButton#btn_close:hover {
-                    background-image: url(:/resources/icons/top_bar/close/hovered.png);
+                    background-image: url(resources/icons/top_bar/close/hovered.png);
                 }
 
                 QPushButton#btn_close:pressed {
-                    background-image: url(:/resources/icons/top_bar/close/pressed.png);
+                    background-image: url(resources/icons/top_bar/close/pressed.png);
                 }
             """
         )
@@ -138,15 +138,15 @@ class MainWindow(QMainWindow):
                 }
 
                 QPushButton#btn_minimize {
-                    background-image: url(:/resources/icons/top_bar/minimize/default.png);
+                    background-image: url(resources/icons/top_bar/minimize/default.png);
                 }
 
                 QPushButton#btn_minimize:hover {
-                    background-image: url(:/resources/icons/top_bar/minimize/hovered.png);
+                    background-image: url(resources/icons/top_bar/minimize/hovered.png);
                 }
 
                 QPushButton#btn_minimize:pressed {
-                    background-image: url(:/resources/icons/top_bar/minimize/pressed.png);
+                    background-image: url(resources/icons/top_bar/minimize/pressed.png);
                 }
             """
         )
@@ -164,15 +164,15 @@ class MainWindow(QMainWindow):
                 }
 
                 QPushButton#btn_settings {
-                    background-image: url(:/resources/icons/top_bar/settings/default.png);
+                    background-image: url(resources/icons/top_bar/settings/default.png);
                 }
 
                 QPushButton#btn_settings:hover {
-                    background-image: url(:/resources/icons/top_bar/settings/hovered.png);
+                    background-image: url(resources/icons/top_bar/settings/hovered.png);
                 }
 
                 QPushButton#btn_settings:pressed {
-                    background-image: url(:/resources/icons/top_bar/settings/pressed.png);
+                    background-image: url(resources/icons/top_bar/settings/pressed.png);
                 }
             """
         )
@@ -208,18 +208,18 @@ class MainWindow(QMainWindow):
 
                 QPushButton#btn_url_home {
                     border: 2px solid rgba(255, 255, 255, 0);
-                    background-image: url(:/resources/icons/right_bar/home/default.png);
+                    background-image: url(resources/icons/right_bar/home/default.png);
                     background-color: rgba(20, 20, 20, 0.6);
                 }
 
                 QPushButton#btn_url_home:hover {
                     border: 2px solid rgb(255, 225, 145);
-                    background-image: url(:/resources/icons/right_bar/home/hovered.png);
+                    background-image: url(resources/icons/right_bar/home/hovered.png);
                 }
 
                 QPushButton#btn_url_home:pressed {
                     border: 2px solid rgb(255, 205, 125);
-                    background-image: url(:/resources/icons/right_bar/home/pressed.png);
+                    background-image: url(resources/icons/right_bar/home/pressed.png);
                 }
             """
         )
@@ -243,18 +243,18 @@ class MainWindow(QMainWindow):
 
                 QPushButton#btn_url_facebook {
                     border: 2px solid rgba(255, 255, 255, 0);
-                    background-image: url(:/resources/icons/right_bar/facebook/default.png);
+                    background-image: url(resources/icons/right_bar/facebook/default.png);
                     background-color: rgba(20, 20, 20, 0.6);
                 }
 
                 QPushButton#btn_url_facebook:hover {
                     border: 2px solid rgb(255, 225, 145);
-                    background-image: url(:/resources/icons/right_bar/facebook/hovered.png);
+                    background-image: url(resources/icons/right_bar/facebook/hovered.png);
                 }
 
                 QPushButton#btn_url_facebook:pressed {
                     border: 2px solid rgb(255, 205, 125);
-                    background-image: url(:/resources/icons/right_bar/facebook/pressed.png);
+                    background-image: url(resources/icons/right_bar/facebook/pressed.png);
                 }
             """
         )
@@ -278,18 +278,18 @@ class MainWindow(QMainWindow):
 
                 QPushButton#btn_url_twitter {
                     border: 2px solid rgba(255, 255, 255, 0);
-                    background-image: url(:/resources/icons/right_bar/twitter/default.png);
+                    background-image: url(resources/icons/right_bar/twitter/default.png);
                     background-color: rgba(20, 20, 20, 0.6);
                 }
 
                 QPushButton#btn_url_twitter:hover {
                     border: 2px solid rgb(255, 225, 145);
-                    background-image: url(:/resources/icons/right_bar/twitter/hovered.png);
+                    background-image: url(resources/icons/right_bar/twitter/hovered.png);
                 }
 
                 QPushButton#btn_url_twitter:pressed {
                     border: 2px solid rgb(255, 205, 125);
-                    background-image: url(:/resources/icons/right_bar/twitter/pressed.png);
+                    background-image: url(resources/icons/right_bar/twitter/pressed.png);
                 }
             """
         )
@@ -313,18 +313,18 @@ class MainWindow(QMainWindow):
 
                 QPushButton#btn_url_instagram {
                     border: 2px solid rgba(255, 255, 255, 0);
-                    background-image: url(:/resources/icons/right_bar/instagram/default.png);
+                    background-image: url(resources/icons/right_bar/instagram/default.png);
                     background-color: rgba(20, 20, 20, 0.6);
                 }
 
                 QPushButton#btn_url_instagram:hover {
                     border: 2px solid rgb(255, 225, 145);
-                    background-image: url(:/resources/icons/right_bar/instagram/hovered.png);
+                    background-image: url(resources/icons/right_bar/instagram/hovered.png);
                 }
 
                 QPushButton#btn_url_instagram:pressed {
                     border: 2px solid rgb(255, 205, 125);
-                    background-image: url(:/resources/icons/right_bar/instagram/pressed.png);
+                    background-image: url(resources/icons/right_bar/instagram/pressed.png);
                 }
             """
         )
@@ -348,18 +348,18 @@ class MainWindow(QMainWindow):
 
                 QPushButton#btn_url_youtube {
                     border: 2px solid rgba(255, 255, 255, 0);
-                    background-image: url(:/resources/icons/right_bar/youtube/default.png);
+                    background-image: url(resources/icons/right_bar/youtube/default.png);
                     background-color: rgba(20, 20, 20, 0.6);
                 }
 
                 QPushButton#btn_url_youtube:hover {
                     border: 2px solid rgb(255, 225, 145);
-                    background-image: url(:/resources/icons/right_bar/youtube/hovered.png);
+                    background-image: url(resources/icons/right_bar/youtube/hovered.png);
                 }
 
                 QPushButton#btn_url_youtube:pressed {
                     border: 2px solid rgb(255, 205, 125);
-                    background-image: url(:/resources/icons/right_bar/youtube/pressed.png);
+                    background-image: url(resources/icons/right_bar/youtube/pressed.png);
                 }
             """
         )
@@ -383,18 +383,18 @@ class MainWindow(QMainWindow):
 
                 QPushButton#btn_url_hoyolab {
                     border: 2px solid rgba(255, 255, 255, 0);
-                    background-image: url(:/resources/icons/right_bar/hoyolab/default.png);
+                    background-image: url(resources/icons/right_bar/hoyolab/default.png);
                     background-color: rgba(20, 20, 20, 0.6);
                 }
 
                 QPushButton#btn_url_hoyolab:hover {
                     border: 2px solid rgb(255, 225, 145);
-                    background-image: url(:/resources/icons/right_bar/hoyolab/hovered.png);
+                    background-image: url(resources/icons/right_bar/hoyolab/hovered.png);
                 }
 
                 QPushButton#btn_url_hoyolab:pressed {
                     border: 2px solid rgb(255, 205, 125);
-                    background-image: url(:/resources/icons/right_bar/hoyolab/pressed.png);
+                    background-image: url(resources/icons/right_bar/hoyolab/pressed.png);
                 }
             """
         )
@@ -407,8 +407,6 @@ class MainWindow(QMainWindow):
         self.btn_url_swap.move(20, 557)
         if (game_name == 'honkai'):
             self.btn_url_swap.hide()
-        elif (game_name == 'starrail'):
-            self.btn_url_swap.move(90, 557)
         self.btn_url_swap.setCursor(QCursor(QtCore.Qt.PointingHandCursor))
         self.btn_url_swap.setStyleSheet(
                 """
@@ -424,18 +422,18 @@ class MainWindow(QMainWindow):
 
                     QPushButton#btn_url_swap {
                         border: 2px solid rgba(255, 255, 255, 0);
-                        background-image: url(:/resources/icons/change_game/honkai.png);
+                        background-image: url(resources/icons/change_game/honkai.png);
                         background-color: rgba(20, 20, 20, 0.6);
                     }
 
                     QPushButton#btn_url_swap:hover {
                         border: 2px solid rgb(255, 225, 145);
-                        background-image: url(:/resources/icons/change_game/honkai.png);
+                        background-image: url(resources/icons/change_game/honkai.png);
                     }
 
                     QPushButton#btn_url_swap:pressed {
                         border: 2px solid rgb(255, 205, 125);
-                        background-image: url(:/resources/icons/change_game/honkai.png);
+                        background-image: url(resources/icons/change_game/honkai.png);
                     }
                 """
                     )
@@ -461,63 +459,24 @@ class MainWindow(QMainWindow):
 
                     QPushButton#btn_url_swap {
                         border: 2px solid rgba(255, 255, 255, 0);
-                        background-image: url(:/resources/icons/change_game/genshin.png);
+                        background-image: url(resources/icons/change_game/genshin.png);
                         background-color: rgba(20, 20, 20, 0.6);
                     }
 
                     QPushButton#btn_url_swap:hover {
                         border: 2px solid rgb(255, 225, 145);
-                        background-image: url(:/resources/icons/change_game/genshin.png);
+                        background-image: url(resources/icons/change_game/genshin.png);
                     }
 
                     QPushButton#btn_url_swap:pressed {
                         border: 2px solid rgb(255, 205, 125);
-                        background-image: url(:/resources/icons/change_game/genshin.png);
+                        background-image: url(resources/icons/change_game/genshin.png);
                     }
                 """
                     )
         self.btn_url_swap2.clicked.connect(lambda: self.btn_url_event('genshin'))
-
-        self.btn_url_swap3 = QPushButton(self, text=None, objectName='btn_url_swap', flat=True)
-        self.btn_url_swap3.setFixedSize(QSize(63, 63))
-        self.btn_url_swap3.move(90, 557)
-        if (game_name == 'starrail'):
-            self.btn_url_swap3.hide()
-        self.btn_url_swap3.setDisabled(False)
-        self.btn_url_swap3.setCursor(QCursor(QtCore.Qt.PointingHandCursor))
-        self.btn_url_swap3.setStyleSheet(
-                """
-                    QPushButton#btn_url_swap, QPushButton#btn_url_swap:hover, QPushButton#btn_url_swap:pressed {
-                        border-radius: 10px;
-                        background-repeat: no-repeat;
-                        background-position: center;
-                    }
-
-                    QPushButton#btn_url_swap:hover, QPushButton#btn_url_swap:pressed {
-                        background-color: rgba(20, 20, 20, 0.9);
-                    }
-
-                    QPushButton#btn_url_swap {
-                        border: 2px solid rgba(255, 255, 255, 0);
-                        background-image: url(:/resources/icons/change_game/starrail.png);
-                        background-color: rgba(20, 20, 20, 0.6);
-                    }
-
-                    QPushButton#btn_url_swap:hover {
-                        border: 2px solid rgb(255, 225, 145);
-                        background-image: url(:/resources/icons/change_game/starrail.png);
-                    }
-
-                    QPushButton#btn_url_swap:pressed {
-                        border: 2px solid rgb(255, 205, 125);
-                        background-image: url(:/resources/icons/change_game/starrail.png);
-                    }
-                """
-                    )
-        self.btn_url_swap3.clicked.connect(lambda: self.btn_url_event('starrail'))
-
-        self.choose = QPushButton(self, text=' Other Games ', objectName='choose', flat=True)
-        self.choose.setFixedSize(QSize(135, 30))
+        self.choose = QPushButton(self, text=' Switch Game ', objectName='choose', flat=True)
+        self.choose.setFixedSize(QSize(105, 30))
         self.choose.move(20, 523)
         self.choose.setDisabled(True)
         self.choose.setStyleSheet(
@@ -527,7 +486,7 @@ class MainWindow(QMainWindow):
                     background-repeat: no-repeat;
                     background-position: center;
                     color: #FFFFFF;
-                    font: 15pt "Segoe UI";
+                    font: 12pt "Segoe UI";
                     text-align: center;
                 }
 
@@ -538,56 +497,14 @@ class MainWindow(QMainWindow):
             """
         )
 
-        self.btn_url_launcher = QPushButton(self, text=None, objectName='btn_url_launcher', flat=True)
-        self.btn_url_launcher.setFixedSize(QSize(40, 40))
-        self.btn_url_launcher.move(750, 567)
-        self.btn_url_launcher.setCursor(QCursor(QtCore.Qt.PointingHandCursor))
-        self.btn_url_launcher.setStyleSheet(
-            """
-                QPushButton#btn_url_launcher, QPushButton#btn_url_launcher:hover, QPushButton#btn_url_launcher:pressed {
-                    border-radius: 20px;
-                    background-repeat: no-repeat;
-                    background-position: center;
-                }
-
-                QPushButton#btn_url_launcher:hover, QPushButton#btn_url_hoyolab:pressed {
-                    background-color: rgba(20, 20, 20, 0.9);
-                }
-
-                QPushButton#btn_url_launcher {
-                    border: 2px solid rgba(255, 255, 255, 0);
-                    background-image: url(:/resources/icons/right_bar/launcher/default.png);
-                    background-color: rgba(20, 20, 20, 0.6);
-                }
-
-                QPushButton#btn_url_launcher:hover {
-                    border: 2px solid rgb(255, 225, 145);
-                    background-image: url(:/resources/icons/right_bar/launcher/hovered.png);
-                }
-
-                QPushButton#btn_url_launcher:pressed {
-                    border: 2px solid rgb(255, 205, 125);
-                    background-image: url(:/resources/icons/right_bar/launcher/pressed.png);
-                }
-            """
-        )
-        self.btn_url_launcher.clicked.connect(self.btn_launcher_event)
-
-        # ======================================== Main Button: Launch ======================================== #
-        
+        # ======================================== Main Button: Launch ======================================== #   
         match game_name: 
             case 'honkai':
-                launch_text = 'Launch'
-                self.btn_main_launch = QPushButton(self, text=launch_text, objectName='btn_main_launch', flat=True)
+                self.btn_main_launch = QPushButton(self, text='Launch', objectName='btn_main_launch', flat=True)
                 self.btn_main_launch.setEnabled(True)
             case 'genshin':
-                launch_text = 'Launch'
-                self.btn_main_launch = QPushButton(self, text=launch_text, objectName='btn_main_launch', flat=True)
+                self.btn_main_launch = QPushButton(self, text='Launch', objectName='btn_main_launch', flat=True)
                 self.btn_main_launch.setEnabled(True)
-            case _:
-                launch_text = 'Soon'
-                self.btn_main_launch = QPushButton(self, text=launch_text, objectName='btn_main_launch', flat=True)
-                self.btn_main_launch.setEnabled(False)
 
         self.btn_main_launch.setFixedSize(QSize(240, 65))
         self.btn_main_launch.move(800, 555)
@@ -676,10 +593,6 @@ class MainWindow(QMainWindow):
                         change_game('LAUNCHER','game','genshin')
                         self.close()
                         MainWindow()
-                    case 'starrail':
-                        change_game('LAUNCHER','game','starrail')
-                        self.close()
-                        MainWindow()
                     case _:
                         pass
             case 'genshin':
@@ -700,34 +613,6 @@ class MainWindow(QMainWindow):
                        change_game('LAUNCHER','game','honkai')
                        self.close()
                        MainWindow()
-                    case 'starrail':
-                        change_game('LAUNCHER','game','starrail')
-                        self.close()
-                        MainWindow() 
-                    case _:
-                        pass
-            case 'starrail':
-                match destination:
-                    case 'home':
-                        webbrowser.open(url_list[13], new=2)
-                    case 'facebook':
-                        webbrowser.open('https://www.facebook.com/HonkaiStarRail.PT', new=2)
-                    case 'twitter':
-                        webbrowser.open('https://twitter.com/honkaistarrail', new=2)
-                    case 'instagram':
-                        webbrowser.open('https://www.instagram.com/honkaistarrail/', new=2)
-                    case 'youtube':
-                        webbrowser.open('https://www.youtube.com/channel/UC2PeMPA8PAOp-bynLoCeMLA', new=2)
-                    case 'hoyolab':
-                        webbrowser.open(url_list[11], new=2)
-                    case 'honkai':
-                       change_game('LAUNCHER','game','honkai')
-                       self.close()
-                       MainWindow()
-                    case 'genshin':
-                        change_game('LAUNCHER','game','genshin')
-                        self.close()
-                        MainWindow() 
                     case _:
                         pass
             case _:
@@ -739,7 +624,7 @@ class MainWindow(QMainWindow):
         game_name, game_exe, game_exe_path, game_index, screen_width, screen_height, background_image_path, launcher_image, honkai_path, genshin_path, url_list = global_variables()
         del game_name, game_index, background_image_path, launcher_image, honkai_path, genshin_path, url_list
 
-        launch_command = f'{game_exe_path} -screen-fullscreen 1 -screen-width {screen_width} -screen-height {screen_height}'
+        launch_command = f'{game_exe_path} -screen-fullscreen 0 -screen-width {screen_width} -screen-height {screen_height}'
 
         try:
             subprocess.Popen(launch_command, shell=False, close_fds=True)
@@ -752,26 +637,7 @@ class MainWindow(QMainWindow):
 
             return None
         else:
-            sys.exit(0)
-
-    def btn_launcher_event(self):
-        game_name, launcher_exe_path, launcher_exe = launcher_variables()
-        
-        launch_command = f'{launcher_exe_path}'
-
-        try:
-            subprocess.Popen(launch_command, shell=False, close_fds=True)
-        except Exception as launch_error:
-            ui_message_box(
-                'error',
-                f'Unable to launch {launcher_exe}!\n\n' + 
-                f'{launch_error}'
-            )
-
-            return None
-        else:
-            sys.exit(0)
-
+            subprocess.Popen('Launcher.exe', startupinfo=info)
 
 def global_variables():
     game_name, honkai_path, genshin_path, screen_width, screen_height = modules.configuration.read()
@@ -788,11 +654,6 @@ def global_variables():
             game_exe_path = genshin_path.joinpath(game_exe)
             game_index = 1
             launcher_image = background_image_path.joinpath('genshin.png')
-        case 'starrail':
-            game_exe = ''
-            game_exe_path = ''
-            game_index = 2
-            launcher_image = background_image_path.joinpath('starrail.png')
         case _:
             game_exe = ''
             game_exe_path = ''
@@ -806,29 +667,10 @@ def global_variables():
         'https://www.instagram.com/honkaiimpact3rd', 'https://www.instagram.com/genshinimpact',
         'https://www.youtube.com/channel/UCko6H6LokKM__B03i5_vBQQ', 'https://www.youtube.com/c/GenshinImpact',
         'https://www.hoyolab.com/?lang=en-us&utm_source=launcher&utm_medium=game&utm_id=1', 'https://www.hoyolab.com/genshin/?lang=en-us&utm_source=launcher&utm_medium=game&utm_id=2',
-        'https://github.com/shirooo39/mihoyo_launcher','https://hsr.hoyoverse.com/'
+        'https://hsr.hoyoverse.com/'
     ]
     
     return game_name, game_exe, game_exe_path, game_index, screen_width, screen_height, background_image_path, launcher_image, honkai_path, genshin_path, url_list
-
-def launcher_variables():
-    game_name, honkai_launcher_path, genshin_launcher_path = modules.configuration.read_launcher()
-
-    match game_name:
-        case 'honkai':
-            launcher_exe = 'BetterHI3Launcher.exe'
-            launcher_exe_path = honkai_launcher_path.joinpath(launcher_exe)
-        case 'genshin':
-            launcher_exe = 'launcher.exe'
-            launcher_exe_path = genshin_launcher_path.joinpath(launcher_exe)
-        case 'starrail':
-            launcher_exe = ''
-            launcher_exe_path = ''
-        case _:
-            launcher_exe = ''
-            launcher_exe_path = ''
-    
-    return game_name, launcher_exe_path, launcher_exe
 
 if __name__ == '__main__':
     pass

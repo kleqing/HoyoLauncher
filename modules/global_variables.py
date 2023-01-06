@@ -1,6 +1,3 @@
-from cmath import nan
-
-
 try:
     import pathlib
     import modules.configuration
@@ -30,23 +27,18 @@ def global_variables():
         case 'honkai':
             game_exe = 'BH3.exe'
             game_exe_path = honkai_path.joinpath(game_exe)
+            game_index = 0
             launcher_image = background_image_path.joinpath('honkai.png')
         case 'genshin':
             game_exe = 'GenshinImpact.exe'
             game_exe_path = genshin_path.joinpath(game_exe)
+            game_index = 1
             launcher_image = background_image_path.joinpath('genshin.png')
-        case 'starrail':
-            game_exe = ''
-            game_exe_path = ''
-            launcher_image = background_image_path.joinpath('starrail.png')
-        case 'zenless':
-            pass
         case _:
             game_exe = ''
             game_exe_path = ''
+            game_index = 0
             launcher_image = background_image_path
-    
-    game_index = 0
     
     url_list = [
         'https://honkaiimpact3.mihoyo.com/asia', 'https://genshin.mihoyo.com',
@@ -55,7 +47,7 @@ def global_variables():
         'https://www.instagram.com/honkaiimpact3rd', 'https://www.instagram.com/genshinimpact',
         'https://www.youtube.com/channel/UCko6H6LokKM__B03i5_vBQQ', 'https://www.youtube.com/c/GenshinImpact',
         'https://www.hoyolab.com/?lang=en-us&utm_source=launcher&utm_medium=game&utm_id=1', 'https://www.hoyolab.com/genshin/?lang=en-us&utm_source=launcher&utm_medium=game&utm_id=2',
-        'https://github.com/shirooo39'
+        'https://github.com/kleqing'
     ]
     
     return game_name, game_exe, game_exe_path, game_index, screen_width, screen_height, background_image_path, launcher_image, honkai_path, genshin_path, url_list

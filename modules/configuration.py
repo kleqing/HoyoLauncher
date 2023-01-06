@@ -31,21 +31,20 @@ def initialize():
             return True
         case _:
             parser['LAUNCHER'] = {
-                'game': 'honkai',
-                'default': 'honkai'
+                'game': 'honkai'
             }
             parser['PATHS'] = {
-                'honkai_impact': 'D:\\Games\\Honkai Impact 3rd',
-                'genshin_impact': 'D:\\Games\\Genshin Impact'
+                'honkai_impact': '',
+                'genshin_impact': ''
             }
             parser['OPTIONS'] = {
                 'screen_width': '1280',
-                'screen_height': '720'
-                # 'enable_reshade': 'False'
+                'screen_height': '600'
+                #'enable_reshade': 'False'
             }
 
             try:
-                with open(config_file, 'w') as f:
+                with open(config_file, 'w+') as f:
                     parser.write(f)
             except Exception:
                 return False
@@ -65,36 +64,13 @@ def read():
                 genshin_path = pathlib.Path(parser.get('PATHS', r'genshin_impact'))
                 screen_width = parser.getint('OPTIONS', 'screen_width')
                 screen_height = parser.getint('OPTIONS', 'screen_height')
-                # enable_reshade = parser.getboolean('OPTIONS', 'enable_reshade')
+                #enable_reshade = parser.getboolean('OPTIONS', 'enable_reshade')
 
-                return game_name, honkai_path, genshin_path, screen_width, screen_height #, enable_reshade
+                return game_name, honkai_path, genshin_path, screen_width, screen_height #,enable_reshade
         case _:
             pass
     
     return None
-
-def read_launcher():
-    match initialize():
-        case True:
-            try:
-                parser.read(config_file)
-            except Exception as unknonw_error:
-                ui_message_box('error', str(unknonw_error))
-            else:
-                game_name = parser.get('LAUNCHER', 'game')
-                honkai_launcher_path = pathlib.Path(parser.get('OL', r'honkai_impact'))
-                genshin_launcher_path = pathlib.Path(parser.get('OL', r'genshin_impact'))
-
-                return game_name, honkai_launcher_path, genshin_launcher_path
-        case _:
-            pass
-    
-    return None
-    
-def defaultgame():
-    default_game = parser.get('LAUNCHER', 'default')
-    return default_game
-
 
 def write(section, item, value):
     match initialize():
@@ -102,7 +78,7 @@ def write(section, item, value):
             parser.set(section, item, value)
 
             try:
-                with open(config_file, 'w') as cfg:
+                with open(config_file, 'w+') as cfg:
                     parser.write(cfg)
             except Exception as unknown_error:
                 ui_message_box('error', str(unknown_error))
@@ -115,4 +91,3 @@ def write(section, item, value):
 
 if __name__ == '__main__':
     pass
-
